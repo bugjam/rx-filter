@@ -74,7 +74,7 @@ public class Service {
 		// Construct a stream which repeatedly calls "the backend" until we have enough data
 		Flowable<ItemAndKeys<Integer>> data = getData(key1)
 				// Merge the data chunks into one stream of data
-				.flatMap(c -> streamChunk(c)) 
+				.concatMap(c -> streamChunk(c)) 
 				// Skip items from the first chunk if they were already returned in the previous call
 				.skip(start!=null && start.key2!=null ? start.key2 : 0) 
 				// Filter by the given predicate
